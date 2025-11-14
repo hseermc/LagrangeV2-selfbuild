@@ -2,7 +2,11 @@ name: Build Lagrange.Milky
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - master
+      - main
+      - dev
+
     paths:
       - .github/workflows/milky-build.yaml
       - Lagrange.Codec/**
@@ -11,7 +15,10 @@ on:
       - Lagrange.Proto.Generator/**
       - Lagrange.Milky/**
   pull_request:
-    branches: [ main ]
+    branches:
+      - master
+      - main
+      - dev
     paths:
       - .github/workflows/milky-build.yaml
       - Lagrange.Codec/**
@@ -68,3 +75,12 @@ jobs:
           path: |
             Lagrange.Milky/bin/Release/net9.0/${{ matrix.rid }}/publish/*
             !Lagrange.Milky/bin/Release/net9.0/${{ matrix.rid }}/publish/Lagrange.Milky${{ matrix.binary-extension }}
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Download
+          path: |
+            Lagrange.Milky/bin/Release/net9.0/${{ matrix.rid }}/publish/*
+            !Lagrange.Milky/bin/Release/net9.0/${{ matrix.rid }}/publish/Lagrange.Milky${{ matrix.binary-extension }}
+      
+        
